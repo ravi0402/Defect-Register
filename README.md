@@ -2,8 +2,7 @@
 
 ## A full stack application to maintain and manage defects
 
-![defecttrack](https://user-images.githubusercontent.com/66166738/102771477-f98a6f80-43ab-11eb-902a-b8242c666ae7.gif)
-  
+<!-- ![defecttrack](https://user-images.githubusercontent.com/66166738/102771477-f98a6f80-43ab-11eb-902a-b8242c666ae7.gif) -->
 
 ## Features ⭐
 
