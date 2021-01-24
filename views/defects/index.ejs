@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+  <h1 class="h2">Defects</h1>
+
+  <div class="btn-toolbar mb-2 mb-md-0 form-inline">
+      <a href="/defects/new" class="btn btn-outline-info mr-2">New</a>
+  </div>
+
+</div>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Assigned To</th>
+              <th>State</th>
+              <th>Created At</th>
+              <th>Environment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% defects.forEach( defect =>{ %> 
+              <tr>
+                <td><a href="/defects/<%= defect.id %>"><%= defect.number %></a></td>
+                <td><%= defect.member.name %></td>
+                <td><%= defect.state %></td>
+                <td><%= defect.createdOn.toISOString().split('T')[0] %></td>
+                <td><%= defect.environment %></td>
+              </tr>
+              <% }) %> 
+          </tbody>
+        </table>
+      </div>

@@ -1,0 +1,11 @@
+<div class="text-center mt-5">
+    <% if(currentUser) {%>
+        <h2>Welcome <%= currentUser.name %>
+        </h2>
+        <% } else{%>
+            <h2>Welcom User</h2>
+            <% } %>
+            <p>Let us start logging defects</p>
+            <a href="/defects/new" class="btn btn-outline-dark btn-lg">Create Defect</a>
+            <a href="/members/new" class="btn btn-outline-dark btn-lg">Create Member</a>
+</div>

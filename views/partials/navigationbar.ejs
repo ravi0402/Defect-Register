@@ -1,0 +1,20 @@
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-1 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Defect Register</a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+        data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="nav px-3">
+        <% if(currentUser) { %>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="#"><%= currentUser.name %></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/password/change">Change Password</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/logout">Log out</a>
+        </li>
+        <% } %>
+    </ul>
+</header>

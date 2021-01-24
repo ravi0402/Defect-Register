@@ -1,0 +1,5 @@
+<h4 class="mb-3 mt-2"><span>Defect : <%= defect.number  %></span></h4>
+  <form action="/defects/<%= defect.id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+    <%- include('./_form_fields.ejs') %> 
+  </form>
+

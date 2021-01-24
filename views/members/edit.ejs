@@ -1,0 +1,5 @@
+<h4 class="mb-3 mt-2"><span><%= member.name %></span></h4>
+  <form action="/members/<%= member.id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+    <%- include('./_form_fields.ejs') %> 
+  </form>
+

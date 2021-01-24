@@ -1,0 +1,20 @@
+<%- include('./partials/authheader.ejs') %>
+<title>Forgot Password</title> 
+<link href="/css/login.css" rel="stylesheet">
+<body>
+  <div class="container w-25">
+    <h1 class="text-center mt-2 mb-3 font-weight-normal">Forgot password</h1>
+    <%- include('./partials/messages.ejs') %> 
+    <form action="/forgot" method="POST">
+
+        <div class="form-group px-0">
+            <input type="email" name="email" class="form-control" placeholder="Please enter your email Address">
+        </div>
+        <button type="submit" class="btn btn-dark btn-block">Send Email</button>
+        <a class="float-right mt-0 mb-3 text-primary" href="/login">Back to login</a>
+    </form>
+</div>
+
+
+</body>
+</html>
