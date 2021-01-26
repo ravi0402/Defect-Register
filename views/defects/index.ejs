@@ -11,20 +11,24 @@
           <thead>
             <tr>
               <th>Number</th>
-              <th>Assigned To</th>
-              <th>State</th>
+              <th>Title</th>
+              <th>Referred To</th>
+              <th>Observed By</th>
               <th>Created At</th>
-              <th>Environment</th>
+              <th>Department</th>
+              <th>State</th>
             </tr>
           </thead>
           <tbody>
             <% defects.forEach( defect =>{ %> 
               <tr>
-                <td><a href="/defects/<%= defect.id %>"><%= defect.number %></a></td>
-                <td><%= defect.member.name %></td>
-                <td><%= defect.state %></td>
+                <td><a href="/defects/show/<%= defect.id %>"><%= defect.number %></a></td>
+                <td><%= defect.title %></td>
+                <td><%= defect.dept_referred_to %></td>
+                <td><%= defect.observer %></td>
                 <td><%= defect.createdOn.toISOString().split('T')[0] %></td>
-                <td><%= defect.environment %></td>
+                <td><%= defect.dept %></td>
+                <td><%= defect.state %></td>
               </tr>
               <% }) %> 
           </tbody>

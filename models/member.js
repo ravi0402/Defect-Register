@@ -11,17 +11,15 @@ const memberSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    dept :{
+        type :Object,
+        required:true,
+        enum : ['Electrical','Mechanical','Operations']
+    },
     mobilePhone:{
         type : Number
     },
-    workPhone:{
-        type : Number
-    },
-    location:{
-        type: String,
-        required : true
-    },
-    position:{
+    designation:{
         type : String,
         required: true
     },
@@ -35,7 +33,7 @@ const memberSchema = new mongoose.Schema({
     }
 })
 
-memberSchema.plugin(autoIncrement,{inc_field : "memberID",start_seq : 1000})
+memberSchema.plugin(autoIncrement,{inc_field : "memberID",start_seq : 1})
 
 memberSchema.pre('remove',function(next){
     Defect.find({member : this.id},(err,defects)=>{

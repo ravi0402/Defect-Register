@@ -53,10 +53,14 @@ router.get('/password/change', (req, res) => {
 
 //sign up post router
 router.post('/signup', (req, res) => {
-    const { name, email, password } = req.body
+    const { name, password, designation, dept, employee_id } = req.body
     const userData = {
         name,
-        email
+        designation,
+        dept, 
+        employee_id, 
+        isVerified: 'Pending',
+        isAdmin: false,
     }
     User.register(userData, password, (err, user) => {
         if (err) {
@@ -72,11 +76,23 @@ router.post('/signup', (req, res) => {
 
 //login post router
 
+// router.post('/login', passport.authenticate('local', {
+//     successRedirect: '/dashboard',
+//     failureRedirect: '/login',
+//     failureFlash: 'Invalid Employee-ID or password. Try again!!'
+// }))
+
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/login',
-    failureFlash: 'Invalid email or password. Try again!!'
-}))
+    failureFlash: 'Invalid Employee-ID or password. Try again!!'
+}), async (req, res) => {
+    const user = await User.findOne({ employee_id: req.body.employee_id })
+    if (["False", "Pending"].includes(user.isVerified)) {
+        req.flash('error_msg', 'User account is not verified yet. Please contact administrator!')
+        res.redirect('/login')
+    } else {
+        res.redirect('/dashboard')
+    }
+})
 
 
 //handle change password
@@ -87,7 +103,7 @@ router.post('/password/change', async (req, res) => {
         return res.redirect('/password/change');
     }
     try {
-        const user = await User.findOne({ email: req.user.email })
+        const user = await User.findOne({ employee_id: req.user.employee_id })
         await user.setPassword(req.body.password, err => {
             user.save()
             req.flash('success_msg', 'Password changed successfully.');
@@ -111,9 +127,9 @@ router.post('/forgot', (req, res, next) => {
         },
         async (token, done) => {
             try {
-                const user = await User.findOne({ email: req.body.email })
+                const user = await User.findOne({ employee_id: req.body.employee_id })
                 if (!user) {
-                    req.flash('error_msg', 'User does not exist with this email.');
+                    req.flash('error_msg', 'User does not exist with this employee_id.');
                     return res.redirect('/forgot');
                 }
                 user.resetPasswordToken = token;

@@ -1,102 +1,105 @@
 const express = require('express')
 
 const router = express.Router()
-const Member = require('../models/member')
+const User = require('../models/user')
 const user = require('./user')
 
-router.get('/',user.isAuthenticatedUser,async (req,res)=>{
+router.get('/', user.isAuthenticatedUser, async (req, res) => {
     let searchOptions = {}
-    if(req.query.name != null || req.query.name == ''){
-       searchOptions.name = new RegExp(req.query.name,'i')
+    if (req.query.name != null || req.query.name == '') {
+        searchOptions.name = new RegExp(req.query.name, 'i')
     }
     try {
-        const members = await Member.find(searchOptions)
-        res.render('members/index',{
-            members,
-            searchOptions : req.query
-        })
-
-    } catch {
+        if(req.user.isAdmin) {
+            const members = await User.find(searchOptions)
+            res.render('members/index', {
+                members,
+                searchOptions: req.query
+            })
+        } else {
+            req.flash('error_msg', "You don't have access to members section")
+            res.redirect('/dashboard')
+        }
+    } catch (e) {
         res.redirect('/')
     }
 })
 
-router.get('/new',user.isAuthenticatedUser,(req,res)=>{
-    res.render('members/new',{member : new Member()})
-})
+// router.get('/new', user.isAuthenticatedUser, (req, res) => {
+//     res.render('members/new', { member: new Member() })
+// })
 
-router.post('/',async (req,res)=>{
-    const member = new Member({
-        name : req.body.name,
-        email : req.body.email,
-        mobilePhone : req.body.mobilePhone,
-        workPhone : req.body.workPhone,
-        location:req.body.location,
-        position: req.body.position
-    })
-    try {
-        const newMember = await member.save()
-        res.redirect('/members')
-    } catch {
-        res.redirect('/')
-    }
-})
+// router.post('/', async (req, res) => {
+//     const member = new Member({
+//         name: req.body.name,
+//         email: req.body.email,
+//         mobilePhone: req.body.mobilePhone,
+//         dept: req.body.dept,
+//         designation: req.body.designation
+//     })
+//     try {
+//         const newMember = await member.save()
+//         res.redirect('/members')
+//     } catch(e) {
+//         res.redirect('/')
+//     }
+// })
 
 //show the page
 
-router.get('/:id',async (req,res)=>{
+router.get('/show/:id', async (req, res) => {
     try {
-        const member = await Member.findById(req.params.id)
-        res.render('members/show',{
+        const member = await User.findById(req.params.id)
+        res.render('members/show', {
             member
         })
-    } catch(e){
+    } catch (e) {
         console.log(e);
         res.redirect('/')
     }
-   
+
 })
 
 //Edit the page
-router.get('/:id/edit',async (req,res)=>{
+router.get('/:id/edit', async (req, res) => {
     try {
-        const member = await Member.findById(req.params.id)
-        res.render('members/edit',{member : member})
-    } catch {
+        const member = await User.findById(req.params.id)
+        res.render('members/edit', { member: member })
+    } catch(e) {
         res.redirect('/members')
     }
 })
 
-router.put('/:id',async (req,res)=>{
+router.put('/:id', async (req, res) => {
     let member
     try {
-        member = await Member.findById(req.params.id)
+        member = await User.findById(req.params.id)
+        console.log(req.body);
         member.name = req.body.name,
-        member.email = req.body.email,
-        member.mobilePhone = req.body.mobilePhone,
-        member.workPhone = req.body.workPhone,
-        member.location=req.body.location,
-        member.position= req.body.position
+            member.employee_id = req.body.employee_id,
+            member.dept = req.body.dept,
+            member.isVerified = req.body.isVerified
+            member.designation = req.body.designation
         await member.save()
-        res.redirect(`/members/${member.id}`)
-    } catch {
+        res.redirect(`/members/show/${member.id}`)
+    } catch(e) {
         res.redirect('/')
     }
 })
 
-router.delete('/:id',async (req,res)=>{
+router.delete('/:id', async (req, res) => {
     let member
     try {
-        member = await Member.findById(req.params.id)
+        member = await User.findById(req.params.id)
         await member.remove()
         res.redirect('/members')
-    } catch(e) {
-        if(member){
-            res.render('members/edit',{
+    } catch (e) {
+        if (member) {
+            res.render('members/edit', {
                 member,
-                errorMessage :"Could not remove book"
+                errorMessage: "Could not remove book"
             })
-        }else{
+        } else {
             res.redirect('/')
         }
     }

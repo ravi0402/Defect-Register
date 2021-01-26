@@ -2,7 +2,6 @@
   <h1 class="h2">Members</h1>
 
   <div class="btn-toolbar mb-2 mb-md-0 form-inline">
-      <a href="/members/new" class="btn btn-outline-info mr-2">New</a>
       <form action="/members" method="GET">
       <input type="text" class="form-control mr-sm-2" placeholder="Search" name="name" value="<%= searchOptions.name %>">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -16,19 +15,21 @@
             <tr>
               <th>Number</th>
               <th>Name</th>
-              <th>Email</th>
-              <th>Position</th>
-              <th>Location</th>
+              <th>Employee ID</th>
+              <th>Department</th>
+              <th>Designation</th>
+              <th>Verification Status</th>
             </tr>
           </thead>
           <tbody>
-            <% members.forEach( member =>{ %> 
+            <% members.forEach( (member,index) =>{ %> 
             <tr>
-              <td><a href="/members/<%= member.id %>"><%= member.memberID %></a></td>
+              <td><a href="/members/show/<%= member.id %>"><%= index+1 %></a></td>
               <td><%= member.name %></td>
-              <td><%= member.email %></td>
-              <td><%= member.position %></td>
-              <td><%= member.location %></td>
+              <td><%= member.employee_id %></td>
+              <td><%= member.dept %></td>
+              <td><%= member.designation %></td>
+              <td><%= member.isVerified %></td>
             </tr>
             <% }) %> 
           </tbody>

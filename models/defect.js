@@ -5,43 +5,47 @@ const defectSchema = new mongoose.Schema({
     number :{
         type : Number
     },
-    member :{
-        type: mongoose.Schema.Types.ObjectId,
-        ref : 'Member',
+    createdOn:{
+        type: Date,
+        default : Date.now
+    },
+    dept_referred_to: {
+        type :Object,
+        required:true,
+        enum : ["Electrical Department","Mechanical Department","Operations Department"]
+    },
+    observer :{
+        type: String,
         required: true
     },
     priority:{
         type : Object,
         required: true,
-        enum :['1','2','3','4']
-    },
-    createdOn:{
-        type: Date,
-        default : Date.now
+        enum :['High','Medium','Low']
     },
     state :{
         type : Object,
         required : true,
-        enum : ["Assigned","Work in progress","Resolved","Canceled"]
+        enum : ["Reported", "Acknowledged", "Work in progress","Resolved","Canceled"]
     },
-    points:{
+    equipment: {
         type : String
     },
-    environment :{
-        type :Object,
-        required:true,
-        enum : ['Dev','QA','UAT','Prod']
+    nature: {
+        type : String
     },
-    product:{
-        type:String
+    location: {
+        type : String
     },
-    shortDescription:{
+    title:{
+        required: true,
         type:String
     },
     description:{
+        required: true,
         type:String
     }
 })
 
-defectSchema.plugin(autoIncrement,{inc_field : "number",start_seq : 1000})
+defectSchema.plugin(autoIncrement,{inc_field : "number",start_seq : 1})
 module.exports = mongoose.model('Defect',defectSchema)

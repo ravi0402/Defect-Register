@@ -38,34 +38,48 @@
       <div class="col-md-7 col-lg-8 mt-3">
        
           <div class="row g-3">
-            <div class="col-12">
+            <div class="col-6">
               <label for="name" class="form-label">Name</label>
-              <input disabled type="text" class="form-control" id="name" name="name" value="<%= member.name %>">
+              <input disabled type="text" class="form-control" id="name" name="name" value="<%= member.name %>" disabled>
             </div>
 
-            <div class="col-12">
-              <label for="email" class="form-label">Email </label>
-              <input disabled type="email" class="form-control" id="email" placeholder="you@example.com" name="email" value="<%= member.email %>">
+            <div class="col-6">
+              <label for="employee_id" class="form-label">Employee ID</label>
+              <input disabled type="text" class="form-control" id="employee_id" placeholder="EMP-XXX" name="employee_id" value="<%= member.employee_id %>" disabled>
+            </div>
+
+            <div class="col-6">
+              <label for="dept" class="form-label">Department</label>
+              <select id="dept" class="form-control" name="dept" required disabled>
+                <% const deptOptions = ["Electrical Department","Mechanical Department","Operations Department"] %> 
+                <% deptOptions.forEach(deptOption =>{ %> 
+                    <% if(member.dept == deptOption) { %> 
+                  <option selected label="<%= member.dept %>" value="<%= deptOption %>" >
+                  <% } else { %> 
+                    <option value="<%= deptOption %>"><%= deptOption %></option>
+                    <% } %> 
+                  <% }) %> 
+            </select>
+            </div>
+            <div class="col-sm-6">
+              <label for="designation" class="form-label">Designation</label>
+              <input disabled type="text" class="form-control" id="designation" placeholder="Ops Engineer" name="designation" value="<%= member.designation %>" disabled>
             </div>
 
             <div class="col-sm-6">
-              <label for="mobilePhone" class="form-label">Mobile Phone <span class="text-muted">(Optional)</span></label>
-              <input disabled type="text" class="form-control" id="address" placeholder="999988499" name="mobilePhone" value="<%= member.mobilePhone %>">
-            </div>
-            <div class="col-sm-6">
-              <label for="workPhone" class="form-label">Work Phone <span class="text-muted">(Optional)</span></label>
-              <input disabled type="text" class="form-control" id="address" placeholder="022-1254-5213" name="workPhone" value="<%= member.workPhone %>">
+              <label for="isVerified" class="form-label">Verified</label>
+              <select id="isVerified" class="form-control" name="isVerified" required disabled>
+                <% const verifiedOptions = ["True", "False", "Pending"] %> 
+                <% verifiedOptions.forEach(option =>{ %> 
+                    <% if(member.isVerified == option) { %> 
+                  <option selected label="<%= member.isVerified %>" value="<%= option %>" >
+                  <% } else { %> 
+                    <option value="<%= option %>"><%= option %></option>
+                    <% } %> 
+                  <% }) %> 
+            </select>
             </div>
 
-            <div class="col-sm-6">
-              <label for="position" class="form-label">Position</label>
-              <input disabled type="text" class="form-control" id="address" placeholder="Software Engineer" name="position" value="<%= member.position %>">
-            </div>
-            <div class="col-sm-6">
-              <label for="location" class="form-label">Location</label>
-              <input disabled type="text" class="form-control" id="address" placeholder="1234 Main St" name="location" value="<%= member.location %>">
-            </div>
-            
           </div>
         <hr class="my-4">
         <div>
