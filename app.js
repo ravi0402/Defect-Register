@@ -26,7 +26,7 @@ app.use(methodOverride('_method'))
 
 const mongoose = require('mongoose')
 const router = require('./routers/member')
-mongoose.connect("mongodb://localhost:27017/defectRegister", { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
+mongoose.connect(process.env.DATABASE_URI || "mongodb://localhost:27017/defectRegister", { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
 
 const db = mongoose.connection
 
