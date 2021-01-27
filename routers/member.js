@@ -18,7 +18,7 @@ router.get('/', user.isAuthenticatedUser, async (req, res) => {
             })
         } else {
             req.flash('error_msg', "You don't have access to members section")
-            res.redirect('/dashboard')
+            res.redirect('/defects')
         }
     } catch (e) {
         res.redirect('/')

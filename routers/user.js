@@ -90,7 +90,7 @@ router.post('/login', passport.authenticate('local', {
         req.flash('error_msg', 'User account is not verified yet. Please contact administrator!')
         res.redirect('/login')
     } else {
-        res.redirect('/dashboard')
+        res.redirect('/defects')
     }
 })
 
@@ -107,7 +107,7 @@ router.post('/password/change', async (req, res) => {
         await user.setPassword(req.body.password, err => {
             user.save()
             req.flash('success_msg', 'Password changed successfully.');
-            res.redirect('/dashboard');
+            res.redirect('/defects');
         })
 
     } catch (error) {

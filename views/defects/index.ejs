@@ -12,10 +12,10 @@
             <tr>
               <th>Number</th>
               <th>Title</th>
+              <th>Description</th>
               <th>Referred To</th>
               <th>Observed By</th>
               <th>Created At</th>
-              <th>Department</th>
               <th>State</th>
             </tr>
           </thead>
@@ -24,10 +24,10 @@
               <tr>
                 <td><a href="/defects/show/<%= defect.id %>"><%= defect.number %></a></td>
                 <td><%= defect.title %></td>
+                <td><%= defect.description %></td>
                 <td><%= defect.dept_referred_to %></td>
                 <td><%= defect.observer %></td>
                 <td><%= defect.createdOn.toISOString().split('T')[0] %></td>
-                <td><%= defect.dept %></td>
                 <td><%= defect.state %></td>
               </tr>
               <% }) %> 

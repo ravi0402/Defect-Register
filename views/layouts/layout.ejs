@@ -42,6 +42,7 @@
 
   <div class="container-fluid">
     <div class="row">
+      <% if(currentUser.isAdmin) {%>
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
@@ -55,20 +56,25 @@
                 Defects
               </a>
             </li>
-            <% if(currentUser.isAdmin) {%>
             <li class="nav-item">
               <a class="nav-link" href="/members">
                 Members
               </a>
             </li>
-            <% } %>
           </ul>
         </div>
       </nav>
+      <% } %>
 
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <%- body %>
-      </main>
+      <% if(currentUser.isAdmin) {%>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <%- body %>
+        </main>
+      <% } else { %>
+        <main class="col-md-9 ms-sm-auto col-lg-12 px-md-4">
+          <%- body %>
+        </main>
+      <% } %>
     </div>
   </div>
   <script src="dashboard.js"></script>
